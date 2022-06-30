@@ -1,0 +1,1 @@
+const { serveStatic, notFoundHandler } = require("./src/handlers");
