@@ -55,4 +55,4 @@ const notFoundHandler = function (request, response) {
   return true;
 };
 
-module.exports = { notFoundHandler, serveStatic };
+module.exports = { notFoundHandler, serveStatic, parseParams };
