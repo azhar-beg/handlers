@@ -1,3 +1,3 @@
-const { serveStatic, notFoundHandler } = require("./src/handlers");
+const { serveStatic, notFoundHandler, parseParams } = require("./src/handlers");
 
 module.exports = { parseParams, serveStatic, notFoundHandler };
