@@ -1,3 +1,4 @@
-const { serveStatic, notFoundHandler, parseParams } = require("./src/handlers");
+const { serveStatic, notFoundHandler, injectParams } = require("./src/handlers");
+const { injectCookies } = require("./src/injectCookies");
 
-module.exports = { parseParams, serveStatic, notFoundHandler };
+module.exports = { injectParams, serveStatic, notFoundHandler, injectCookies };

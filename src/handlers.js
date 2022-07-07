@@ -13,26 +13,25 @@ const getParams = searchParams => {
   return params;
 };
 
-const parseParams = (req, res, next) => {
+const injectParams = (req, res, next) => {
   if (req.method === 'POST') {
     let data = '';
     req.on('data', chunk => data += chunk);
     req.on('end', () => {
-      req.params = getParams(new URLSearchParams(data));
+      req.body = data;
+      req.bodyParams = getParams(new URLSearchParams(data));
       req.pathname = req.url.pathname
-      console.log(req.pathname);
       next();
     })
   } else {
     const url = new URL(req.url, `http://${req.headers.host}`)
     req.pathname = url.pathname;
-    req.params = getParams(url.searchParams)
-    console.log(req.pathname, req.params);
+    req.urlParams = getParams(url.searchParams)
     next();
   }
 };
 
-module.exports = { parseParams };
+module.exports = { injectParams };
 
 
 const serveStatic = (sourceRoot = './public') => function (req, res, next) {
@@ -49,10 +48,10 @@ const serveStatic = (sourceRoot = './public') => function (req, res, next) {
 
 const html = content => `<html><body>${content}</body></html>`;
 
-const notFoundHandler = function (request, response) {
-  response.statusCode = 404;
-  response.end(html('Bad Request'));
+const notFoundHandler = function (req, res) {
+  res.statusCode = 404;
+  res.end(html('Bad Request'));
   return true;
 };
 
-module.exports = { notFoundHandler, serveStatic, parseParams };
+module.exports = { notFoundHandler, serveStatic, parseParams: injectParams };
