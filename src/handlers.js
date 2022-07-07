@@ -26,7 +26,7 @@ const injectParams = (req, res, next) => {
   } else {
     const url = new URL(req.url, `http://${req.headers.host}`)
     req.pathname = url.pathname;
-    req.urlParams = getParams(url.searchParams)
+    req.searchParams = getParams(url.searchParams)
     next();
   }
 };
