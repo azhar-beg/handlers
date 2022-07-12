@@ -31,9 +31,6 @@ const injectParams = (req, res, next) => {
   }
 };
 
-module.exports = { injectParams };
-
-
 const serveStatic = (sourceRoot = './public') => function (req, res, next) {
   const fileName = req.url.pathname === '/' ? '/index.html' : req.url.pathname;
   const filePath = sourceRoot + fileName;
@@ -54,4 +51,4 @@ const notFoundHandler = function (req, res) {
   return true;
 };
 
-module.exports = { notFoundHandler, serveStatic, parseParams: injectParams };
+module.exports = { notFoundHandler, serveStatic, injectParams };
